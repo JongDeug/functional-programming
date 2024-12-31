@@ -1,0 +1,38 @@
+<script>
+    const log = console.log;
+
+    // 사용자 정의 이터러블을 통해 알아보기
+    const customIterator = {
+        [Symbol.iterator]() {
+            let i = 3;
+
+            // 이터레이터 반환
+            return {
+                next() {
+                    return i === 0 ? { done: true } : { value: i--, done: false };
+                },
+                // map.keys()는 이터레이터를 반환하는데 잘 작동되잖아.
+                // 이터레이터를 for ... of 로 돌릴려면 이터레이터 자체가 이터러블이어야 함.
+                [Symbol.iterator]() {
+                    return this;
+                }
+            }
+        }
+    }
+
+    let iterator = customIterator[Symbol.iterator]();
+    for (const a of iterator) log(a);
+
+    // 브라우저에서도 동작한다
+    for (const a of document.querySelectorAll('*')) log(a)
+    const all = document.querySelectorAll('*')
+    let iteratorAll = all[Symbol.iterator]();
+    log(iteratorAll.next());
+    log(iteratorAll.next());
+    log(iteratorAll.next());
+
+    // 전개 연산자도 이터러블/이터레이터 프로토콜을 사용한다.
+    const a = [1, 2];
+    // a[Symbol.iterator] = null;
+    log(...a)
+</script>
