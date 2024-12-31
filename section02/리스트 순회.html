@@ -1,0 +1,22 @@
+<script>
+    const log = console.log;
+
+    // 기존
+    const list = [1, 2, 3];
+    for (let i = 0; i < list.length; i++) {
+        log(list[i]);
+    }
+    const str = 'abc';
+    for (let i = 0; i < list.length; i++) {
+        log(str[i]);
+    }
+
+    // ES6
+    // 명령적 -> 선언적 
+    for (const item of list) {
+        log(item);
+    }
+    for (const item of str) {
+        log(item)
+    }
+</script>
