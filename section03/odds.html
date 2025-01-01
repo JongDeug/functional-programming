@@ -1,0 +1,49 @@
+<script>
+    const log = console.log;
+
+    // 다양한 제너레이터 만들어보기
+
+    function* infinity(i = 0) {
+        while (true) yield i++;
+    }
+
+    function* limit(num, iter) {
+        for (const a of iter) {
+            yield a;
+            if (a === num) return;
+        }
+    }
+
+    function* odds(num) {
+        for (const a of limit(num, infinity(1))) {
+            if (a % 2 !== 0) yield a;
+            if (a === num) return
+        }
+        // for (let i = 0; i < num; i++) {
+        //     if (i % 2 !== 0) yield i;
+        // }
+    }
+
+    let iterator = odds(10);
+    log(iterator.next());
+    log(iterator.next());
+    log(iterator.next());
+    log(iterator.next());
+    log(iterator.next());
+    log(iterator.next());
+
+    for (const a of odds(40)) log(a);
+
+    // for ... of, 전개 연산자, 구조 분해, 나머지 연산자 
+    log(...odds(10));
+    log([...odds(10), ...odds(20)])
+
+    const [head, ...tail] = odds(5);
+    log(head);
+    log(tail);
+
+    const [a, b, ...rest] = odds(10);
+    log(a);
+    log(b);
+    log(rest);
+</script>
